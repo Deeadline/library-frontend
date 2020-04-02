@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {LoginInterface} from "../../api/model/login.interface";
 import {BehaviorSubject, Observable} from "rxjs";
 import {AuthService} from "../../api/rest/auth.service";
-import {map} from "rxjs/operators";
+import {map, mergeMap} from "rxjs/operators";
 import {UserInterface} from "../../api/model/user.interface";
 import {RegisterInterface} from "../../api/model/register.interface";
 
@@ -43,11 +43,17 @@ export class AuthDataProvider {
   public register(request: RegisterInterface): Observable<boolean> {
     return this.authService.register(request)
       .pipe(
-        map(response => Boolean(response))
+        // auto-login after registration
+        mergeMap(response => this.login({email: request.email, password: request.password}))
       );
   }
 
   private setCurrent(response: UserInterface) {
     this.current$.next(response);
+  }
+
+  logout() {
+    localStorage.removeItem(this.tokenKey);
+    location.reload();
   }
 }

@@ -6,14 +6,15 @@ import {RegisterComponent} from './page/register/register.component';
 import {RouterModule} from "@angular/router";
 import {ReactiveFormsModule} from "@angular/forms";
 import {SharedModule} from "../../shared/shared.module";
-
+import {RxReactiveFormsModule} from "@rxweb/reactive-form-validators";
 
 @NgModule({
   declarations: [LoginComponent, RegisterComponent],
   imports: [
     SharedModule,
     AuthRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RxReactiveFormsModule
   ],
   exports: [
     RouterModule

@@ -1,30 +1,35 @@
-<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-  <mat-card>
-    <mat-card-header>
-      <mat-card-title>Login</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <div class="row">
+<div class="container" fxLayout fxLayoutAlign="center center" *ngIf="!loading else loader">
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Login</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
         <div class="col">
-          <mat-form-field class="full-width">
-            <input matInput placeholder="username" formControlName="username">
-            <mat-error *ngIf="loginForm.controls['username'].hasError('required')">
-              Username is <strong>required</strong>
+          <mat-form-field>
+            <input matInput placeholder="email" formControlName="email">
+            <mat-error *ngIf="loginForm.get('email').hasError('required')">
+              Email is <strong>required</strong>
             </mat-error>
           </mat-form-field>
         </div>
         <div class="col">
-          <mat-form-field class="full-width">
-            <input matInput placeholder="password" formControlName="password">
-            <mat-error *ngIf="loginForm.controls['password'].hasError('required')">
+          <mat-form-field>
+            <input matInput placeholder="password" formControlName="password" type="password">
+            <mat-error *ngIf="loginForm.get('password').hasError('required')">
               Password is <strong>required</strong>
             </mat-error>
           </mat-form-field>
         </div>
-      </div>
-    </mat-card-content>
-    <mat-card-actions>
-      <button mat-raised-button color="primary" type="submit">Submit</button>
-    </mat-card-actions>
-  </mat-card>
-</form>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="accent" type="button" (click)="register()">Register</button>
+        <button mat-raised-button color="primary" type="submit">Login</button>
+      </mat-card-actions>
+    </mat-card>
+  </form>
+</div>
+
+<ng-template #loader>
+  <mat-spinner color="accent" mode="indeterminate" *ngIf="loading"></mat-spinner>
+</ng-template>

@@ -1,5 +1,4 @@
 import {ModuleWithProviders, NgModule, Optional, SkipSelf} from '@angular/core';
-import {CommonModule} from '@angular/common';
 import {ApiModule} from "../api/api.module";
 import {RouterModule, Routes} from "@angular/router";
 import {AuthGuard} from "./guard/auth.guard";
@@ -13,12 +12,6 @@ import {HTTP_INTERCEPTORS} from "@angular/common/http";
 import {RequestInterceptor} from "./interceptor/request.interceptor";
 import {JwtTokenInterceptor} from "./interceptor/jwt-token.interceptor";
 import {ResponseInterceptor} from "./interceptor/response.interceptor";
-import {LayoutModule} from '@angular/cdk/layout';
-import {MatToolbarModule} from '@angular/material/toolbar';
-import {MatButtonModule} from '@angular/material/button';
-import {MatSidenavModule} from '@angular/material/sidenav';
-import {MatIconModule} from '@angular/material/icon';
-import {MatListModule} from '@angular/material/list';
 
 const routes: Routes = [
   {
@@ -34,7 +27,7 @@ const routes: Routes = [
   {
     path: 'app',
     component: AppLayoutComponent,
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     children: [
       {
         path: 'book',
@@ -56,19 +49,12 @@ const routes: Routes = [
     CoreComponent
   ],
   imports: [
-    CommonModule,
-    ApiModule.forRoot(),
     SharedModule,
+    ApiModule.forRoot(),
     RouterModule.forRoot(routes, {
       useHash: true,
       enableTracing: true
-    }),
-    LayoutModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatSidenavModule,
-    MatIconModule,
-    MatListModule,
+    })
   ],
   exports: [
     RouterModule,

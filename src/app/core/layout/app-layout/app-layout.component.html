@@ -4,9 +4,22 @@
                [mode]="(isHandset$ | async) ? 'over' : 'side'"
                [opened]="(isHandset$ | async) === false">
     <mat-toolbar>Menu</mat-toolbar>
-    <mat-nav-list>
-      <a mat-list-item [routerLink]="['book']" [routerLinkActive]="'active'">Books</a>
-      <a mat-list-item [routerLink]="['myBooks']" [routerLinkActive]="'active'">My books</a>
+    <mat-divider></mat-divider>
+    <mat-nav-list class="mat-nav-list">
+      <a mat-list-item [routerLink]="['book']" [routerLinkActive]="'active'" class="mat-nav-list-item">
+        Books
+        <mat-icon>library_books</mat-icon>
+      </a>
+      <mat-divider></mat-divider>
+      <a mat-list-item [routerLink]="['myBooks']" [routerLinkActive]="'active'" class="mat-nav-list-item">
+        My books
+        <mat-icon>menu_book</mat-icon>
+      </a>
+      <mat-divider></mat-divider>
+      <a mat-list-item (click)="logout()" class="mat-nav-list-item">
+        Logout
+        <mat-icon></mat-icon>
+      </a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
@@ -15,11 +28,10 @@
         type="button"
         aria-label="Toggle sidenav"
         mat-icon-button
-        (click)="drawer.toggle()"
-        *ngIf="isHandset$ | async">
+        (click)="drawer.toggle()">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <span>library-project</span>
+      <span>Library</span>
     </mat-toolbar>
     <router-outlet></router-outlet>
   </mat-sidenav-content>
