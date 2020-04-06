@@ -1,1 +1,106 @@
-<p>book-form-container works!</p>
+<div class="container" fxLayout fxLayoutAlign="center center">
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Book form</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="row">
+          <div class="col">
+            <mat-form-field>
+              <input
+                matInput
+                placeholder="Title"
+                formControlName="title"
+                [errorStateMatcher]="matcher">
+              <mat-error *ngIf="form.get('title').getError('required')">
+                Title is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field>
+              <input
+                matInput placeholder="Isbn"
+                formControlName="isbn"
+                [errorStateMatcher]="matcher">
+              <mat-error *ngIf="form.get('isbn').getError('required') as error">
+                {{error.message}}
+              </mat-error>
+              <mat-error *ngIf="form.get('isbn').getError('maxLength') as error">
+                {{error.message}}
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <mat-form-field>
+              <input
+                matInput
+                placeholder="Author"
+                formControlName="author"
+                [errorStateMatcher]="matcher">
+              <mat-error *ngIf="form.get('author').getError('required') as error">
+                {{error.message}}
+              </mat-error>
+              <mat-error *ngIf="form.get('author').getError('maxLength') as error">
+                {{error.message}}
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field>
+              <input
+                matInput
+                placeholder="Publishing house"
+                formControlName="publishingHouse"
+                [errorStateMatcher]="matcher">
+              <mat-error *ngIf="form.get('publishingHouse').getError('required') as error">
+                {{error.message}}
+              </mat-error>
+              <mat-error *ngIf="form.get('publishingHouse').getError('maxLength') as error">
+                {{error.message}}
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <mat-form-field>
+              <input
+                matInput
+                placeholder="Release year"
+                formControlName="releaseDate" [errorStateMatcher]="matcher">
+              <mat-error *ngIf="form.get('releaseDate').getError('required') as error">
+                {{error.message}}
+              </mat-error>
+              <mat-error *ngIf="form.get('releaseDate').getError('minLength') as error">
+                {{error.message}}
+              </mat-error>
+              <mat-error *ngIf="form.get('releaseDate').getError('pattern') as error">
+                {{error.message}}
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <p-multiSelect
+              [options]="categories"
+              formControlName="categories"
+              [showHeader]="false"
+              defaultLabel="Select categories"
+              optionLabel="name">
+            </p-multiSelect>
+            <mat-error
+              *ngIf="isCategoriesSelectorChanged(form.get('categories')) && form.get('categories').getError('required')">
+              Categories are required
+            </mat-error>
+          </div>
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" type="submit">Submit</button>
+      </mat-card-actions>
+    </mat-card>
+  </form>
+</div>

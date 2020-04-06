@@ -35,6 +35,7 @@ export class BookEditComponent implements OnInit {
       ]).subscribe(([model, categories]) => {
         this.model = model;
         this.categories = categories;
+        this.loading = false;
       })
     }
   }

@@ -8,17 +8,18 @@ import {SharedModule} from "../../shared/shared.module";
 import {RouterModule} from "@angular/router";
 import {BookDataProvider} from "./service/book-data-provider";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {BookFormComponent} from './component/book-form/book-form.component';
 import {BookFormContainerComponent} from './container/book-form-container/book-form-container.component';
+import {RxReactiveFormsModule} from "@rxweb/reactive-form-validators";
 
 
 @NgModule({
-  declarations: [BookListComponent, BookCreateComponent, BookEditComponent, BookFormComponent, BookFormContainerComponent],
+  declarations: [BookListComponent, BookCreateComponent, BookEditComponent, BookFormContainerComponent],
   imports: [
     SharedModule,
     BookRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    RxReactiveFormsModule
   ],
   providers: [
     BookDataProvider

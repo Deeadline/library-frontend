@@ -11,26 +11,31 @@ body {
 
 .main-wrapper {
   height: 100vh;
+}
 
-  .container {
-    height: 100%;
+.container {
+  height: 100%;
 
-    form {
-      width: 25rem;
+  form {
+    width: 30rem;
 
-      .col {
-        margin: .5rem 0;
-      }
+    .col {
+      margin: .5rem 0;
+    }
 
-      mat-form-field {
-        width: 100%;
-      }
+    mat-form-field {
+      width: 100%;
+    }
 
-      mat-card-actions {
-        text-align: right;
-      }
+    mat-card-actions {
+      text-align: right;
     }
   }
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
 }
 
 .mat-nav-list-item {

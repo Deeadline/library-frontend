@@ -2,7 +2,8 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {CategoryModel} from "../../model/category.model";
 import {BookInterface} from "../../../../api/model/book.interface";
 import {BookModel} from "../../model/book.model";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {MyErrorStateMatcher} from "../../../../core/utils/errors.helper";
+import {NumericValueType, RxFormBuilder, RxFormGroup, RxwebValidators} from "@rxweb/reactive-form-validators";
 
 @Component({
   selector: 'app-book-form-container',
@@ -28,20 +29,18 @@ export class BookFormContainerComponent implements OnInit {
   }
 
   set model(value: BookModel) {
-    if (value) {
-      this._model = value;
-      this.patchForm();
-    }
+    this._model = value;
   }
 
   private _model: BookModel;
 
   @Output() submitEvent = new EventEmitter<BookInterface>();
 
-  public form: FormGroup;
+  public form: RxFormGroup;
+  public matcher = new MyErrorStateMatcher();
 
   constructor(
-    private fb: FormBuilder,
+    private fb: RxFormBuilder,
   ) {
   }
 
@@ -50,27 +49,49 @@ export class BookFormContainerComponent implements OnInit {
   }
 
   private createForm() {
-    this.form = this.fb.group({
+    this.form = <RxFormGroup>this.fb.group({
       id: [null],
-      title: [null, [Validators.required]],
-      isbn: [null, [Validators.required, Validators.maxLength(13)]],
-      author: [null, [Validators.required, Validators.maxLength(30)]],
-      publishingHouse: [null, [Validators.required, Validators.maxLength(30)]],
-      releaseDate: [null, [Validators.required, Validators.minLength(4), Validators.maxLength(4)]],
-      categories: [[], [Validators.required]]
-    })
+      title: [null, [RxwebValidators.required({message: 'Title is required'})]],
+      isbn: [null, [
+        RxwebValidators.required({message: 'Title is required'}),
+        RxwebValidators.maxLength({value: 13, message: 'Maximum 13 characters'})
+      ]],
+      author: [null, [
+        RxwebValidators.required({message: 'Author is required'}),
+        RxwebValidators.maxLength({value: 13, message: 'Maximum 13 characters'})
+      ]],
+      publishingHouse: [null, [
+        RxwebValidators.required({message: 'Publishing house is required'}),
+        RxwebValidators.maxLength({value: 13, message: 'Maximum 13 characters'})
+      ]],
+      releaseDate: [null, [
+        RxwebValidators.required({message: 'Release date is required'}),
+        RxwebValidators.minLength({value: 4, message: 'Exactly 4 characters'}),
+        RxwebValidators.maxLength({value: 4, message: 'Exactly 4 characters'}),
+        RxwebValidators.numeric(
+          {message: 'Release date should be number', acceptValue: NumericValueType.PositiveNumber, allowDecimal: false})
+      ]],
+      categories: [null, [RxwebValidators.required({message: 'Category is required'}),]]
+    });
+    this.patchForm();
   }
 
   submit() {
     if (this.form.valid) {
-      this.submitEvent.emit()
+      const model = this.form.value as BookModel;
+      const parsedModel: BookInterface = {...model, categoryIds: model.categories.map(c => c.id)};
+      this.submitEvent.emit(parsedModel);
     }
   }
 
   private patchForm() {
-    if (this.form) {
-      this.form.patchValue(this.model);
+    if (this.form && this.model) {
+      this.form.patchModelValue(this.model);
     }
+  }
+
+  isCategoriesSelectorChanged(control) {
+    return control.dirty || control.touched;
   }
 
 }
