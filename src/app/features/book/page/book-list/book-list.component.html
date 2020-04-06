@@ -13,12 +13,14 @@
         <input pInputText id="float-input" size="30" [formControl]="textInput"/>
           <label for="float-input">Type title or author</label>
           </span>
-        <p-calendar
-          placeholder="Date from and Date to"
-          [(ngModel)]="dates"
-          selectionMode="range"
-          (onClose)="onClose()"
-          [dateFormat]="'dd-mm-yy'"></p-calendar>
+        <p-multiSelect
+          [options]="years"
+          [(ngModel)]="selectedYears"
+          (onPanelHide)="onYearHide()"
+          [showHeader]="false"
+          optionLabel="value"
+        >
+        </p-multiSelect>
         <p-multiSelect
           [options]="categories"
           [(ngModel)]="selectedCategories"
@@ -50,6 +52,5 @@
         </mat-card-actions>
       </mat-card>
     </mat-card-content>
-    <mat-paginator></mat-paginator>
   </mat-card>
 </div>

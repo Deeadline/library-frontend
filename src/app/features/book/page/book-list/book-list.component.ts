@@ -8,6 +8,7 @@ import {Subject} from "rxjs";
 import {QueryParameterInterface} from "../../../../api/model/query-parameter.interface";
 import {FormControl, Validators} from "@angular/forms";
 import {debounceTime, distinctUntilChanged, filter, map, withLatestFrom} from "rxjs/operators";
+import {SelectItem} from "primeng/api";
 
 @Component({
   selector: 'app-book-list',
@@ -17,17 +18,23 @@ import {debounceTime, distinctUntilChanged, filter, map, withLatestFrom} from "r
 export class BookListComponent implements OnInit {
   public books: BookModel[] = [];
   public categories: CategoryModel[] = [];
-  dates: Date[];
   selectedCategories: CategoryModel[];
   public queryParams = new Subject<QueryParameterInterface>();
   public qp: QueryParameterInterface = {};
   public textInput = new FormControl('', [Validators.minLength(3)]);
-  public availableDates: string[] = [];
+  public years: SelectItem[] = Array.from(Array(2020 - 1950), (v, i) => {
+    return {
+      value: '' + (1950 + i),
+      label: '' + (1950 + i)
+    }
+  });
+  public selectedYears: SelectItem[];
 
   constructor(
     private bookService: BookDataProvider,
     private dialog: MatDialog
   ) {
+
     this.findAll();
     const values = this.textInput.valueChanges;
 
@@ -77,19 +84,16 @@ export class BookListComponent implements OnInit {
   }
 
   onHide() {
-    this.qp = {...this.qp, category: this.selectedCategories.map(sc => sc.name)};
-    this.queryParams.next(this.qp);
+    if (this.selectedCategories) {
+      this.qp = {...this.qp, category: this.selectedCategories.map(sc => sc.name)};
+      this.queryParams.next(this.qp);
+    }
   }
 
-  onClose() {
-    if (this.dates) {
-      if (this.dates[0]) {
-        this.qp = {...this.qp, releasedBefore: this.dates[0].toDateString()};
-      }
-      if (this.dates[1]) {
-        this.qp = {...this.qp, releasedBefore: this.dates[1].toDateString()};
-      }
+  onYearHide() {
+    if (this.selectedYears) {
+      this.qp = {...this.qp, releaseDate: this.selectedYears.map(sy => sy.value)};
+      this.queryParams.next(this.qp);
     }
-    this.queryParams.next(this.qp);
   }
 }

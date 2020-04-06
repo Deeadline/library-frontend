@@ -1,6 +1,5 @@
 export interface QueryParameterInterface {
-  releasedAfter?: string;
-  releasedBefore?: string;
+  releaseDate?: string[];
   title?: string;
   author?: string;
   category?: string[];

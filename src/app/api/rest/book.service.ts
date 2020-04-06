@@ -26,7 +26,7 @@ export class BookService {
     let params = new HttpParams();
     if (queryParams) {
       Object.entries(queryParams).forEach(([key, value]) => {
-        if (key === 'category') {
+        if (key === 'category' || key === 'releaseDate') {
           value.forEach(v => {
             params = params.append(key, v);
           })
