@@ -1,1 +1,14 @@
-<p>book-edit works!</p>
+<div
+  class="grid-container"
+  fxLayout
+  fxLayoutAlign="center center"
+  *ngIf="!loading else loader">
+  <app-book-form-container
+    [model]="model"
+    [categories]="categories"
+    (submitEvent)="onSubmit($event)"></app-book-form-container>
+</div>
+
+<ng-template #loader>
+  <mat-spinner color="accent" mode="indeterminate" *ngIf="loading"></mat-spinner>
+</ng-template>

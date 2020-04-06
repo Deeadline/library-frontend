@@ -6,6 +6,7 @@ import {forkJoin, Observable, Subject} from "rxjs";
 import {debounceTime, distinctUntilChanged, map, switchMap} from "rxjs/operators";
 import {BookModel} from "../model/book.model";
 import {CategoryModel} from "../model/category.model";
+import {BookInterface} from "../../../api/model/book.interface";
 
 @Injectable()
 export class BookDataProvider {
@@ -68,5 +69,15 @@ export class BookDataProvider {
         return this.findAll(queryParams);
       })
     );
+  }
+
+  public create(book: BookInterface): Observable<BookInterface> {
+    return this.bookService
+      .create(book);
+  }
+
+  update(book: BookInterface) {
+    return this.bookService
+      .update(book.id, book);
   }
 }
