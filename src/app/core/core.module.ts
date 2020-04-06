@@ -12,6 +12,7 @@ import {HTTP_INTERCEPTORS} from "@angular/common/http";
 import {RequestInterceptor} from "./interceptor/request.interceptor";
 import {JwtTokenInterceptor} from "./interceptor/jwt-token.interceptor";
 import {ResponseInterceptor} from "./interceptor/response.interceptor";
+import {RoleGuard} from "./guard/role.guard";
 
 const routes: Routes = [
   {
@@ -31,10 +32,12 @@ const routes: Routes = [
     children: [
       {
         path: 'book',
+        canActivateChild: [RoleGuard],
         loadChildren: () => import('../features/book/book.module').then(f => f.BookModule)
       },
       {
         path: 'myBooks',
+        canActivateChild: [RoleGuard],
         loadChildren: () => import('../features/library/library.module').then(f => f.LibraryModule)
       }
     ]

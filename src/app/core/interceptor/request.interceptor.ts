@@ -12,7 +12,7 @@ export class RequestInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     request = request.clone({
       url: environment.apiUrl + request.url,
-      headers: request.headers.set('Accept', 'application/json')
+      headers: request.headers.set('Accept', 'application/json').set('Content-Type', 'application/json')
     });
     return next.handle(request);
   }

@@ -1,3 +1,5 @@
+import {CommentInterface} from "./comment.interface";
+
 export interface BookInterface {
   id: number;
   title: string;
@@ -6,4 +8,5 @@ export interface BookInterface {
   publishingHouse: string;
   releaseDate: string;
   categoryIds: number[];
+  comments: CommentInterface[];
 }

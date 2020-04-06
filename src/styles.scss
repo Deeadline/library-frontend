@@ -38,3 +38,12 @@ body {
     justify-content: space-between;
   }
 }
+
+.ui-multiselect {
+  width: 10rem;
+
+  .ui-multiselect-panel {
+    right: 0;
+    left: unset !important;
+  }
+}

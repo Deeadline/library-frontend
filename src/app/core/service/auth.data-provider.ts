@@ -5,16 +5,19 @@ import {AuthService} from "../../api/rest/auth.service";
 import {map, mergeMap} from "rxjs/operators";
 import {UserInterface} from "../../api/model/user.interface";
 import {RegisterInterface} from "../../api/model/register.interface";
+import {JwtHelperService} from "@auth0/angular-jwt";
 
 @Injectable()
 export class AuthDataProvider {
 
   private readonly tokenKey = 'jwt-token';
 
-  private current$ = new BehaviorSubject<UserInterface>(null);
-  public current = this.current$.asObservable();
+  private userSource = new BehaviorSubject<UserInterface>(null);
+  public user$: Observable<UserInterface>;
 
   constructor(private authService: AuthService) {
+    this.user$ = this.userSource.asObservable();
+    this.user$.subscribe();
   }
 
   public isAuthenticated(): boolean {
@@ -23,6 +26,16 @@ export class AuthDataProvider {
 
   public getToken(): string {
     return localStorage.getItem(this.tokenKey);
+  }
+
+  public getRole(): string {
+    const token = this.getToken();
+    if (token) {
+      const helper = new JwtHelperService();
+      const decodeToken = helper.decodeToken(token);
+      return JSON.parse(JSON.stringify(decodeToken)).role;
+    }
+    return null;
   }
 
   public setToken(token): void {
@@ -49,7 +62,7 @@ export class AuthDataProvider {
   }
 
   private setCurrent(response: UserInterface) {
-    this.current$.next(response);
+    this.userSource.next(response);
   }
 
   logout() {

@@ -8,15 +8,24 @@ import {BookEditComponent} from "./page/book-edit/book-edit.component";
 const routes: Routes = [
   {
     path: '',
-    component: BookListComponent
+    component: BookListComponent,
+    data: {
+      roles: ['ROLE_ADMINISTRATOR', 'ROLE_USER']
+    }
   },
   {
     path: 'create',
-    component: BookCreateComponent
+    component: BookCreateComponent,
+    data: {
+      roles: ['ROLE_ADMINISTRATOR']
+    }
   },
   {
     path: 'edit/:id',
-    component: BookEditComponent
+    component: BookEditComponent,
+    data: {
+      roles: ['ROLE_ADMINISTRATOR']
+    }
   }
 ];
 

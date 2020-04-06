@@ -6,7 +6,10 @@ import {BookListComponent} from "./page/book-list/book-list.component";
 const routes: Routes = [
   {
     path: '',
-    component: BookListComponent
+    component: BookListComponent,
+    data: {
+      roles: ['ROLE_ADMINISTRATOR', 'ROLE_USER']
+    }
   }
 ];
 

@@ -18,9 +18,16 @@ import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatListModule} from "@angular/material/list";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
+import {MatChipsModule} from "@angular/material/chips";
+import {DialogComponent} from './dialog/dialog.component';
+import {MatDialogModule} from "@angular/material/dialog";
+import {CalendarModule} from "primeng/calendar";
+import {MultiSelectModule} from "primeng/multiselect";
+import {InputTextModule} from "primeng/inputtext";
+import {PermissionDirective} from './directive/permission.directive';
 
 @NgModule({
-  declarations: [],
+  declarations: [DialogComponent, PermissionDirective],
   imports: [
     CommonModule,
     MatInputModule,
@@ -40,7 +47,12 @@ import {MatSnackBarModule} from "@angular/material/snack-bar";
     MatListModule,
     FlexLayoutModule,
     MatSnackBarModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatChipsModule,
+    MatDialogModule,
+    CalendarModule,
+    MultiSelectModule,
+    InputTextModule
   ],
   exports: [
     CommonModule,
@@ -61,7 +73,14 @@ import {MatSnackBarModule} from "@angular/material/snack-bar";
     MatListModule,
     FlexLayoutModule,
     MatProgressSpinnerModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatChipsModule,
+    DialogComponent,
+    MatDialogModule,
+    CalendarModule,
+    MultiSelectModule,
+    InputTextModule,
+    PermissionDirective
   ]
 })
 export class SharedModule {

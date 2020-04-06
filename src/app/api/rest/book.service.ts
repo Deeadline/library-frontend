@@ -1,7 +1,8 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpParams} from "@angular/common/http";
 import {BookInterface} from "../model/book.interface";
 import {Observable} from "rxjs";
+import {QueryParameterInterface} from "../model/query-parameter.interface";
 
 @Injectable()
 export class BookService {
@@ -21,8 +22,20 @@ export class BookService {
     return this.http.delete(`/api/books/${id}`);
   }
 
-  public getAll(queryParams): Observable<BookInterface[]> {
-    return this.http.get<BookInterface[]>('/api/books', {params: queryParams})
+  public getAll(queryParams?: QueryParameterInterface): Observable<BookInterface[]> {
+    let params = new HttpParams();
+    if (queryParams) {
+      Object.entries(queryParams).forEach(([key, value]) => {
+        if (key === 'category') {
+          value.forEach(v => {
+            params = params.append(key, v);
+          })
+        } else {
+          params = params.append(key, value);
+        }
+      });
+    }
+    return this.http.get<BookInterface[]>('/api/books', {params})
   }
 
   public getById(id: number): Observable<BookInterface> {
