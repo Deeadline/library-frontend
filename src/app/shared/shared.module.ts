@@ -25,9 +25,10 @@ import {CalendarModule} from "primeng/calendar";
 import {MultiSelectModule} from "primeng/multiselect";
 import {InputTextModule} from "primeng/inputtext";
 import {PermissionDirective} from './directive/permission.directive';
+import {ConfirmationDialogComponent} from './confirmation-dialog/confirmation-dialog.component';
 
 @NgModule({
-  declarations: [DialogComponent, PermissionDirective],
+  declarations: [DialogComponent, PermissionDirective, ConfirmationDialogComponent],
   imports: [
     CommonModule,
     MatInputModule,
@@ -80,7 +81,8 @@ import {PermissionDirective} from './directive/permission.directive';
     CalendarModule,
     MultiSelectModule,
     InputTextModule,
-    PermissionDirective
+    PermissionDirective,
+    ConfirmationDialogComponent
   ]
 })
 export class SharedModule {

@@ -24,6 +24,7 @@
     "@angular/router": "~9.0.7",
     "@auth0/angular-jwt": "^4.0.0",
     "@rxweb/reactive-form-validators": "^1.9.9-beta4",
+    "bootstrap": "^4.4.1",
     "primeicons": "^2.0.0",
     "primeng": "^9.0.5",
     "rxjs": "~6.5.4",

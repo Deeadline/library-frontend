@@ -9,6 +9,8 @@ import {QueryParameterInterface} from "../../../../api/model/query-parameter.int
 import {FormControl, Validators} from "@angular/forms";
 import {debounceTime, distinctUntilChanged, filter, map, withLatestFrom} from "rxjs/operators";
 import {SelectItem} from "primeng/api";
+import {ConfirmationDialogComponent} from "../../../../shared/confirmation-dialog/confirmation-dialog.component";
+import {LibraryDataProvider} from "../../../../core/service/library.data-provider";
 
 @Component({
   selector: 'app-book-list',
@@ -31,7 +33,8 @@ export class BookListComponent implements OnInit {
   public selectedYears: SelectItem[];
 
   constructor(
-    private bookService: BookDataProvider,
+    private bookDataProvider: BookDataProvider,
+    private libraryDataProvider: LibraryDataProvider,
     private dialog: MatDialog
   ) {
 
@@ -56,7 +59,7 @@ export class BookListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.bookService.getCategories()
+    this.bookDataProvider.getCategories()
       .subscribe((y) => {
         this.categories = y;
       });
@@ -64,7 +67,7 @@ export class BookListComponent implements OnInit {
   }
 
   private findAll() {
-    this.bookService.findAllFromSubject(this.queryParams)
+    this.bookDataProvider.findAllFromSubject(this.queryParams)
       .subscribe(x => this.books = x);
   }
 
@@ -76,7 +79,7 @@ export class BookListComponent implements OnInit {
   }
 
   delete(id: number) {
-    this.bookService.delete(id).subscribe(
+    this.bookDataProvider.delete(id).subscribe(
       () => {
         this.books = this.books.filter(b => b.id !== id)
       }
@@ -95,5 +98,21 @@ export class BookListComponent implements OnInit {
       this.qp = {...this.qp, releaseDate: this.selectedYears.map(sy => sy.value)};
       this.queryParams.next(this.qp);
     }
+  }
+
+  loanBook(book: BookModel) {
+    const confirmationDialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '400px',
+      data: book
+    });
+    confirmationDialogRef.afterClosed().subscribe(accepted => {
+      if (accepted) {
+        this.libraryDataProvider.loanBook(book.id)
+          .subscribe(x => {
+            const indexOf = this.books.indexOf(book);
+            this.books[indexOf].isLoaned = true;
+          })
+      }
+    })
   }
 }

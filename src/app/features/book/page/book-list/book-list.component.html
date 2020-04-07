@@ -43,12 +43,20 @@
             <mat-chip *ngFor="let category of book.categories">{{category.name}}</mat-chip>
           </mat-chip-list>
         </mat-card-content>
-        <mat-card-actions>
-          <button mat-raised-button color="accent" type="button" (click)="expand(book)">Show details</button>
-          <a mat-raised-button color="accent" type="button" [routerLink]="['/app','book','edit',book.id]">
-            Edit
+        <mat-card-actions align="end">
+          <button mat-icon-button type="button" *ngIf="!book.isLoaned" (click)="loanBook(book)">
+            <mat-icon>local_library</mat-icon>
+          </button>
+          <a mat-icon-button type="button" [routerLink]="['/app','book','detail',book.id]">
+            <mat-icon>more_horiz</mat-icon>
           </a>
-          <button mat-raised-button color="accent" (click)="delete(book.id)">Delete</button>
+          <a *appPermission="['ROLE_ADMINISTRATOR']" mat-icon-button color="primary" type="button"
+             [routerLink]="['/app','book','edit',book.id]">
+            <mat-icon>edit</mat-icon>
+          </a>
+          <button *appPermission="['ROLE_ADMINISTRATOR']" mat-icon-button color="warn" (click)="delete(book.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
         </mat-card-actions>
       </mat-card>
     </mat-card-content>

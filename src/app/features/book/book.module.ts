@@ -10,10 +10,11 @@ import {BookDataProvider} from "./service/book-data-provider";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {BookFormContainerComponent} from './container/book-form-container/book-form-container.component';
 import {RxReactiveFormsModule} from "@rxweb/reactive-form-validators";
+import {BookDetailComponent} from './page/book-detail/book-detail.component';
 
 
 @NgModule({
-  declarations: [BookListComponent, BookCreateComponent, BookEditComponent, BookFormContainerComponent],
+  declarations: [BookListComponent, BookCreateComponent, BookEditComponent, BookFormContainerComponent, BookDetailComponent],
   imports: [
     SharedModule,
     BookRoutingModule,

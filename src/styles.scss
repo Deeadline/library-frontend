@@ -56,3 +56,10 @@ body {
 .grid-container {
   margin: 2rem;
 }
+
+.wrapper {
+  display: flex;
+  height: 90vh;
+  align-items: center;
+  flex-direction: column;
+}

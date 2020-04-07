@@ -13,6 +13,7 @@ import {RequestInterceptor} from "./interceptor/request.interceptor";
 import {JwtTokenInterceptor} from "./interceptor/jwt-token.interceptor";
 import {ResponseInterceptor} from "./interceptor/response.interceptor";
 import {RoleGuard} from "./guard/role.guard";
+import {LibraryDataProvider} from "./service/library.data-provider";
 
 const routes: Routes = [
   {
@@ -63,7 +64,7 @@ const routes: Routes = [
     RouterModule,
     CoreComponent
   ],
-  providers: [AuthDataProvider]
+  providers: [AuthDataProvider, LibraryDataProvider]
 })
 export class CoreModule {
   constructor(
@@ -79,6 +80,7 @@ export class CoreModule {
       ngModule: CoreModule,
       providers: [
         AuthDataProvider,
+        LibraryDataProvider,
         AuthGuard,
         {
           provide: HTTP_INTERCEPTORS,

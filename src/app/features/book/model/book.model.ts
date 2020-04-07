@@ -8,6 +8,7 @@ export interface BookModel {
   author: string;
   publishingHouse: string;
   releaseDate: string;
+  isLoaned: boolean;
   categories: CategoryModel[];
   comments: CommentInterface[];
 }

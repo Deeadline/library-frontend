@@ -38,6 +38,16 @@ export class AuthDataProvider {
     return null;
   }
 
+  public get currentUsername(): string {
+    const token = this.getToken();
+    if (token) {
+      const helper = new JwtHelperService();
+      const decodeToken = helper.decodeToken(token);
+      return JSON.parse(JSON.stringify(decodeToken)).username;
+    }
+    return null;
+  }
+
   public setToken(token): void {
     localStorage.setItem(this.tokenKey, token);
   }

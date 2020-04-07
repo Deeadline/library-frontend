@@ -7,6 +7,7 @@ export interface BookInterface {
   author: string;
   publishingHouse: string;
   releaseDate: string;
+  isLoaned: boolean;
   categoryIds: number[];
   comments: CommentInterface[];
 }

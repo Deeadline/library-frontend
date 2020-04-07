@@ -15,10 +15,6 @@ export class LibraryService {
     return this.http.get<BookInterface[]>('/api/library/myBooks');
   }
 
-  public checkAvailability(bookId: number): Observable<AvailableInterface> {
-    return this.http.get<AvailableInterface>(`/api/library/availability/${bookId}`);
-  }
-
   public reserve(bookId: number): Observable<BookInterface> {
     return this.http.post<BookInterface>('/api/library/reserve', {bookId});
   }
