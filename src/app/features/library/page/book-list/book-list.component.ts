@@ -3,28 +3,22 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTable} from '@angular/material/table';
 import {BookListDataSource, BookListItem} from './book-list-datasource';
+import {LibraryDataProvider} from "../../../../core/service/library.data-provider";
 
 @Component({
   selector: 'app-book-list',
   templateUrl: './book-list.component.html',
   styleUrls: ['./book-list.component.scss']
 })
-export class BookListComponent implements AfterViewInit, OnInit {
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
-  @ViewChild(MatTable) table: MatTable<BookListItem>;
-  dataSource: BookListDataSource;
+export class BookListComponent implements OnInit {
 
-  /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['id', 'name'];
-
-  ngOnInit() {
-    this.dataSource = new BookListDataSource();
+  constructor(
+    private libraryDataProvider: LibraryDataProvider
+  ) {
   }
 
-  ngAfterViewInit() {
-    this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
-    this.table.dataSource = this.dataSource;
+  ngOnInit() {
+    this.libraryDataProvider.findAll()
+      .subscribe(x => console.log(x))
   }
 }
