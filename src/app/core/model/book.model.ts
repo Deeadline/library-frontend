@@ -1,5 +1,5 @@
 import {CategoryModel} from "./category.model";
-import {CommentInterface} from "../../../api/model/comment.interface";
+import {CommentInterface} from "../../api/model/comment.interface";
 
 export interface BookModel {
   id: number;
@@ -8,7 +8,7 @@ export interface BookModel {
   author: string;
   publishingHouse: string;
   releaseDate: string;
-  isLoaned: boolean;
+  loaned: boolean;
   categories: CategoryModel[];
   comments: CommentInterface[];
 }

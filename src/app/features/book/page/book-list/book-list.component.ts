@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {BookModel} from "../../model/book.model";
+import {BookModel} from "../../../../core/model/book.model";
 import {BookDataProvider} from "../../service/book-data-provider";
 import {MatDialog} from "@angular/material/dialog";
 import {DialogComponent} from "../../../../shared/dialog/dialog.component";
-import {CategoryModel} from "../../model/category.model";
+import {CategoryModel} from "../../../../core/model/category.model";
 import {Subject} from "rxjs";
 import {QueryParameterInterface} from "../../../../api/model/query-parameter.interface";
 import {FormControl, Validators} from "@angular/forms";
@@ -68,14 +68,9 @@ export class BookListComponent implements OnInit {
 
   private findAll() {
     this.bookDataProvider.findAllFromSubject(this.queryParams)
-      .subscribe(x => this.books = x);
-  }
-
-  expand(book: BookModel) {
-    this.dialog.open(DialogComponent, {
-      width: '500px',
-      data: book
-    });
+      .subscribe(x => {
+        this.books = x;
+      });
   }
 
   delete(id: number) {
@@ -110,7 +105,7 @@ export class BookListComponent implements OnInit {
         this.libraryDataProvider.loanBook(book.id)
           .subscribe(x => {
             const indexOf = this.books.indexOf(book);
-            this.books[indexOf].isLoaned = true;
+            this.books[indexOf].loaned = true;
           })
       }
     })

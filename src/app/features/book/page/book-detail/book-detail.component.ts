@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {BookDataProvider} from "../../service/book-data-provider";
 import {ActivatedRoute} from "@angular/router";
-import {BookModel} from "../../model/book.model";
+import {BookModel} from "../../../../core/model/book.model";
 import {AuthDataProvider} from "../../../../core/service/auth.data-provider";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {LibraryDataProvider} from "../../../../core/service/library.data-provider";
@@ -48,8 +48,8 @@ export class BookDetailComponent implements OnInit {
   }
 
   public get isUserCommentedBook() {
-    const usernames = this.book.comments.map(c => c.username);
-    return usernames.includes(this.currentUserName);
+    const userNames = this.comments.map(c => c.username);
+    return userNames.includes(this.currentUserName);
   }
 
   addComment() {
@@ -61,5 +61,9 @@ export class BookDetailComponent implements OnInit {
           this.loading = false;
         })
     }
+  }
+
+  get comments() {
+    return this.book.comments.filter(c => c.comment !== null)
   }
 }

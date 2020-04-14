@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {CategoryModel} from "../../model/category.model";
+import {CategoryModel} from "../../../../core/model/category.model";
 import {BookInterface} from "../../../../api/model/book.interface";
-import {BookModel} from "../../model/book.model";
+import {BookModel} from "../../../../core/model/book.model";
 import {MyErrorStateMatcher} from "../../../../core/utils/errors.helper";
 import {NumericValueType, RxFormBuilder, RxFormGroup, RxwebValidators} from "@rxweb/reactive-form-validators";
 

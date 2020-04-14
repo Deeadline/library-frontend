@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {BookDataProvider} from "../../service/book-data-provider";
-import {CategoryModel} from "../../model/category.model";
+import {CategoryModel} from "../../../../core/model/category.model";
 import {Router} from "@angular/router";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {BookInterface} from "../../../../api/model/book.interface";

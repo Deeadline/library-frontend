@@ -35,7 +35,7 @@ export class BookService {
         }
       });
     }
-    return this.http.get<BookInterface[]>('/api/books', {params})
+    return this.http.get<BookInterface[]>('/api/books', {params});
   }
 
   public getById(id: number): Observable<BookInterface> {

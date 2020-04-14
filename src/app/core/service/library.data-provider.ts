@@ -4,7 +4,7 @@ import {CommentInterface} from "../../api/model/comment.interface";
 import {map} from "rxjs/operators";
 import {forkJoin, Observable} from "rxjs";
 import {CategoryService} from "../../api/rest/category.service";
-import {BookModel} from "../../features/book/model/book.model";
+import {BookModel} from "../model/book.model";
 
 @Injectable()
 export class LibraryDataProvider {
@@ -37,5 +37,9 @@ export class LibraryDataProvider {
         }))
       })
     )
+  }
+
+  returnBook(id: number) {
+    return this.libraryService.returnBook(id);
   }
 }

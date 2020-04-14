@@ -44,7 +44,7 @@
           </mat-chip-list>
         </mat-card-content>
         <mat-card-actions align="end">
-          <button mat-icon-button type="button" *ngIf="!book.isLoaned" (click)="loanBook(book)">
+          <button mat-icon-button type="button" *ngIf="!book.loaned" (click)="loanBook(book)">
             <mat-icon>local_library</mat-icon>
           </button>
           <a mat-icon-button type="button" [routerLink]="['/app','book','detail',book.id]">

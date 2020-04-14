@@ -3,8 +3,8 @@ import {BookDataProvider} from "../../service/book-data-provider";
 import {ActivatedRoute, Router} from "@angular/router";
 import {forkJoin} from "rxjs";
 import {BookInterface} from "../../../../api/model/book.interface";
-import {CategoryModel} from "../../model/category.model";
-import {BookModel} from "../../model/book.model";
+import {CategoryModel} from "../../../../core/model/category.model";
+import {BookModel} from "../../../../core/model/book.model";
 import {HttpErrorResponse} from "@angular/common/http";
 import {MatSnackBar} from "@angular/material/snack-bar";
 

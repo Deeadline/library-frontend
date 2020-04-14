@@ -4,8 +4,8 @@ import {CategoryService} from "../../../api/rest/category.service";
 import {QueryParameterInterface} from "../../../api/model/query-parameter.interface";
 import {forkJoin, Observable, Subject} from "rxjs";
 import {debounceTime, distinctUntilChanged, map, switchMap} from "rxjs/operators";
-import {BookModel} from "../model/book.model";
-import {CategoryModel} from "../model/category.model";
+import {BookModel} from "../../../core/model/book.model";
+import {CategoryModel} from "../../../core/model/category.model";
 import {BookInterface} from "../../../api/model/book.interface";
 
 @Injectable()
